@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.refEq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,9 +35,17 @@ public class InOrderParkingStrategyTest {
     @Test
     public void testCreateNoSpaceReceipt_givenACar_thenGiveANoSpaceReceipt() {
 
-        /* Exercise 1, Write a test case on InOrderParkingStrategy.createNoSpaceReceipt()
-         * With using Mockito to mock the input parameter */
+        //given
+        Car car = mock(Car.class);
+        when(car.getName()).thenReturn("car");
 
+        //when
+        InOrderParkingStrategy inOrderParkingStrategy = new InOrderParkingStrategy();
+        Receipt receipt = inOrderParkingStrategy.createNoSpaceReceipt(car);
+
+        //then
+        Assert.assertEquals(receipt.getCarName(), "car");
+        Assert.assertEquals(receipt.getParkingLotName(), "No Parking Lot");
     }
 
     @Test

@@ -37,7 +37,7 @@ public class InOrderParkingStrategy implements ParkingStrategy {
 		return receipt;
 	}
 
-	private Receipt createNoSpaceReceipt(Car car) {
+	protected Receipt createNoSpaceReceipt(Car car) {
 		
 		Receipt receipt = new Receipt();
 		receipt.setCarName(car.getName());
