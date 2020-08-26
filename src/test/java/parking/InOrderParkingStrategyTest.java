@@ -61,7 +61,7 @@ public class InOrderParkingStrategyTest {
 
         //when
         InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
-        inOrderParkingStrategy.park(Arrays.asList(parkingLot),car);
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot), car);
         //then
         verify(inOrderParkingStrategy, times(1)).createNoSpaceReceipt(car);
     }
@@ -70,20 +70,20 @@ public class InOrderParkingStrategyTest {
     public void testPark_givenThereIsOneParkingLotWithSpace_thenCreateReceipt() {
 
         //given
-        Car car=mock(Car.class);
+        Car car = mock(Car.class);
         when(car.getName()).thenReturn("car");
 
-        ParkingLot parkingLot=mock(ParkingLot.class);
+        ParkingLot parkingLot = mock(ParkingLot.class);
         when(parkingLot.getName()).thenReturn("parkingLot");
         when(parkingLot.getMaxCapacity()).thenReturn(10);
         doReturn(false).when(parkingLot).isFull();
 
         //when
-        InOrderParkingStrategy inOrderParkingStrategy=spy(new InOrderParkingStrategy());
-        inOrderParkingStrategy.park(Arrays.asList(parkingLot),car);
+        InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot), car);
 
         //then
-        verify(inOrderParkingStrategy,times(1)).createReceipt(parkingLot,car);
+        verify(inOrderParkingStrategy, times(1)).createReceipt(parkingLot, car);
 
     }
 
@@ -91,32 +91,57 @@ public class InOrderParkingStrategyTest {
     public void testPark_givenThereIsOneFullParkingLot_thenCreateReceipt() {
 
         //given
-        Car car=mock(Car.class);
+        Car car = mock(Car.class);
         when(car.getName()).thenReturn("car");
 
-        ParkingLot parkingLot1=mock(ParkingLot.class);
+        ParkingLot parkingLot1 = mock(ParkingLot.class);
         when(parkingLot1.getName()).thenReturn("parking1");
         when(parkingLot1.getMaxCapacity()).thenReturn(10);
         doReturn(true).when(parkingLot1).isFull();
 
-        ParkingLot parkingLot2=mock(ParkingLot.class);
+        ParkingLot parkingLot2 = mock(ParkingLot.class);
         when(parkingLot2.getName()).thenReturn("parking2");
         when(parkingLot2.getMaxCapacity()).thenReturn(10);
         doReturn(false).when(parkingLot2).isFull();
 
         //when
-        InOrderParkingStrategy inOrderParkingStrategy=spy(new InOrderParkingStrategy());
-        inOrderParkingStrategy.park(Arrays.asList(parkingLot1,parkingLot2),car);
+        InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot1, parkingLot2), car);
 
         //then
-        verify(inOrderParkingStrategy,times(1)).createReceipt(parkingLot2,car);
+        verify(inOrderParkingStrategy, times(1)).createReceipt(parkingLot2, car);
 
     }
 
     @Test
     public void testPark_givenThereIsMultipleParkingLotAndFirstOneIsFull_thenCreateReceiptWithUnfullParkingLot() {
 
-        /* Exercise 3: Test park() method. Use Mockito.spy and Mockito.verify to test the situation for multiple parking lot situation */
+        //given
+        Car car = mock(Car.class);
+        when(car.getName()).thenReturn("car");
+
+        ParkingLot parkingLot1 = mock(ParkingLot.class);
+        when(parkingLot1.getName()).thenReturn("parking1");
+        when(parkingLot1.getMaxCapacity()).thenReturn(10);
+        doReturn(true).when(parkingLot1).isFull();
+
+        ParkingLot parkingLot2 = mock(ParkingLot.class);
+        when(parkingLot2.getName()).thenReturn("parking2");
+        when(parkingLot2.getMaxCapacity()).thenReturn(10);
+        doReturn(false).when(parkingLot2).isFull();
+
+        ParkingLot parkingLot3 = mock(ParkingLot.class);
+        when(parkingLot3.getName()).thenReturn("parking3");
+        when(parkingLot3.getMaxCapacity()).thenReturn(10);
+        doReturn(false).when(parkingLot3).isFull();
+
+        //when
+        InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot1, parkingLot2, parkingLot3), car);
+
+        //then
+        verify(inOrderParkingStrategy, times(1)).createReceipt(parkingLot2, car);
+
 
     }
 
