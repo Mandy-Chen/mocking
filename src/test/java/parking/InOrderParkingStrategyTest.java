@@ -11,8 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.refEq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class InOrderParkingStrategyTest {
 
@@ -52,7 +51,20 @@ public class InOrderParkingStrategyTest {
     public void testPark_givenNoAvailableParkingLot_thenCreateNoSpaceReceipt() {
 
         /* Exercise 2: Test park() method. Use Mockito.spy and Mockito.verify to test the situation for no available parking lot */
+        //given
+        Car car = mock(Car.class);
+        when(car.getName()).thenReturn("car");
 
+        ParkingLot parkingLot = mock(ParkingLot.class);
+        when(parkingLot.getName()).thenReturn("parkingLot");
+        when(parkingLot.getMaxCapacity()).thenReturn(10);
+        doReturn(true).when(parkingLot).isFull();
+
+        //when
+        InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot),car);
+        //then
+        verify(inOrderParkingStrategy, times(1)).createNoSpaceReceipt(car);
     }
 
     @Test
