@@ -16,23 +16,31 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class VipParkingStrategyPowerMockTest {
 
     @Test
-    public void testCalculateHourlyPrice_givenSunday_thenPriceIsDoubleOfSundayPrice(){
-
+    public void testCalculateHourlyPrice_givenSunday_thenPriceIsDoubleOfSundayPrice() {
+        //given
         mockStatic(ParkingLot.class);
-        VipParkingStrategy vipParkingStrategy=new VipParkingStrategy();
+        VipParkingStrategy vipParkingStrategy = new VipParkingStrategy();
         when(ParkingLot.getBasicHourlyPrice()).thenReturn(25);
-        Integer price=vipParkingStrategy.calculateHourlyPrice();
-        Integer actual=50;
-
-        Assert.assertEquals(actual,price);
+        //when
+        Integer price = vipParkingStrategy.calculateHourlyPrice();
+        Integer actual = 50;
+        //then
+        Assert.assertEquals(actual, price);
 
     }
 
     @Test
-    public void testCalculateHourlyPrice_givenNotSunday_thenPriceIsDoubleOfNonSundayPrice(){
+    public void testCalculateHourlyPrice_givenNotSunday_thenPriceIsDoubleOfNonSundayPrice() {
 
-        /* Exercise 6: Write test case for VipParkingStrategy calculateHourlyPrice
-         * by using PowerMock to mock static method */
+        //given
+        mockStatic(ParkingLot.class);
+        VipParkingStrategy vipParkingStrategy = new VipParkingStrategy();
+        when(ParkingLot.getBasicHourlyPrice()).thenReturn(20);
+        //when
+        Integer price = vipParkingStrategy.calculateHourlyPrice();
+        Integer actual = 40;
+        //then
+        Assert.assertEquals(actual, price);
 
 
     }
