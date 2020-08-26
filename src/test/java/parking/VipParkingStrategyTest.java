@@ -18,15 +18,12 @@ public class VipParkingStrategyTest {
         when(car.getName()).thenReturn("ACar");
         doReturn(true).when(vipParkingStrategy).isAllowOverPark(car);
 
-        CarDao carDao = mock(CarDao.class);
-        when(carDao.isVip("ACar")).thenReturn(true);
-
         ParkingLot parkingLot = mock(ParkingLot.class);
         doReturn(true).when(parkingLot).isFull();
         when(parkingLot.getName()).thenReturn("parkingLot");
         //when
-
         vipParkingStrategy.park(Arrays.asList(parkingLot), car);
+
         //then
         verify(vipParkingStrategy, times(1)).createReceipt(parkingLot, car);
 
@@ -35,8 +32,23 @@ public class VipParkingStrategyTest {
     @Test
     public void testPark_givenCarIsNotVipAndAFullParkingLog_thenGiveNoSpaceReceipt() {
 
-        /* Exercise 4, Write a test case on VipParkingStrategy.park()
-         * With using Mockito spy, verify and doReturn */
+        //given
+        VipParkingStrategy vipParkingStrategy=spy(new VipParkingStrategy());
+
+        Car car=mock(Car.class);
+        when(car.getName()).thenReturn("car");
+        doReturn(false).when(vipParkingStrategy).isAllowOverPark(car);
+
+        ParkingLot parkingLot=mock(ParkingLot.class);
+        doReturn(true).when(parkingLot).isFull();
+        when(parkingLot.getName()).thenReturn("parkingLot");
+
+        //when
+        vipParkingStrategy.park(Arrays.asList(parkingLot),car);
+
+        //then
+        verify(vipParkingStrategy,times(1)).createNoSpaceReceipt(car);
+
     }
 
     @Test
