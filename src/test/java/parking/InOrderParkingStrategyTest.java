@@ -1,16 +1,10 @@
 package parking;
 
-import mocking.CustomerDao;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.refEq;
 import static org.mockito.Mockito.*;
 
 public class InOrderParkingStrategyTest {
