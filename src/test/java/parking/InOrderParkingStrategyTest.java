@@ -50,7 +50,6 @@ public class InOrderParkingStrategyTest {
     @Test
     public void testPark_givenNoAvailableParkingLot_thenCreateNoSpaceReceipt() {
 
-        /* Exercise 2: Test park() method. Use Mockito.spy and Mockito.verify to test the situation for no available parking lot */
         //given
         Car car = mock(Car.class);
         when(car.getName()).thenReturn("car");
@@ -70,7 +69,21 @@ public class InOrderParkingStrategyTest {
     @Test
     public void testPark_givenThereIsOneParkingLotWithSpace_thenCreateReceipt() {
 
-        /* Exercise 2: Test park() method. Use Mockito.spy and Mockito.verify to test the situation for one available parking lot */
+        //given
+        Car car=mock(Car.class);
+        when(car.getName()).thenReturn("car");
+
+        ParkingLot parkingLot=mock(ParkingLot.class);
+        when(parkingLot.getName()).thenReturn("parkingLot");
+        when(parkingLot.getMaxCapacity()).thenReturn(10);
+        doReturn(false).when(parkingLot).isFull();
+
+        //when
+        InOrderParkingStrategy inOrderParkingStrategy=spy(new InOrderParkingStrategy());
+        inOrderParkingStrategy.park(Arrays.asList(parkingLot),car);
+
+        //then
+        verify(inOrderParkingStrategy,times(1)).createReceipt(parkingLot,car);
 
     }
 
